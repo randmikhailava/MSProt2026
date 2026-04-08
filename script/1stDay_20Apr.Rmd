@@ -5,16 +5,16 @@ date: "`r format(Sys.time(), '%Y-%m-%d %H:%M:%S')`"
 output: html_document
 ---
 ## Resources
-Bioconductor packages tagged by "proteomics":
+Bioconductor packages tagged by "proteomics", n=188 on 8th Apr2026:
 https://bioconductor.org/packages/release/BiocViews.html#___Proteomics
 
-```{r setup, include=TRUE, echo=TRUE, eval=FALSE}
+```{r setup, include=TRUE, echo=TRUE, eval=FALSE, message=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 ## install.package("BiocManager")
 
-#library(BiocManager)
-
-# Bioconductor packages
+# library(BiocManager)
+# 
+# # Bioconductor packages
 # if (!requireNamespace("BiocManager", quietly = TRUE))
 #     install.packages("BiocManager")
 # 
@@ -32,6 +32,7 @@ knitr::opts_chunk$set(echo = FALSE)
 # BiocManager::install("pheatmap")
 # BiocManager::install("limma")
 # BiocManager::install("MSnID")
+# BiocManager::install("rawrr")
 # BiocManager::install("RforMassSpectrometry/SpectraVis")
 # 
 # install.packages("tidyverse")
@@ -40,15 +41,15 @@ knitr::opts_chunk$set(echo = FALSE)
 ## Review some points about MS data
 - The continuous workflow of separating-separating-separating!
 
-- Three dimensions: Retention time of analyser elution - M/Z - Measurement of Intensity
+- Three dimensions: Retention time of analyser elution - Mass to charge (M/Z) - Intensity
 
 **Spectrum is the unit of mass spectrometry data**
 
 
 *TIC (total ion chromatogram) plot*: The intensities of all ions in each mass spectrometer scan (within a given time period) are summed and plotted as a function of time.
-*Base peak chromatogram plot*: The intensity of the base peak (the most intense ion in each mass spectrum) is plotted as a function of time. (Note: do not confuse the base peak with the baseline, which represents the constant signal from the background level of the instrument.)
+*Base peak chromatogram plot*: The intensity of the base peak (the most intense ion in each mass spectrum) is plotted as a function of time (Note that the base peak should not be confused with the baseline, which represents the constant background signal of the instrument).
 *XIC or EIC plot*: The intensity of a specific analyte at a chosen m/z value (either total or base peak intensity) is isolated and plotted as a function of time.
-![](fig/TIC_XIC.png)
+![Chromatogram plots](~/Documents/MSProt2026/fig/TIC_XIC.png)
 
 ## Getting data
 Get to know the ProteomeXchange Consortium: Established to create globally coordinated, standardized pipelines for data submission and dissemination across major proteomics repositories, the Consortium promotes open data policies in proteomics.
