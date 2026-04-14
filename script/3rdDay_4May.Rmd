@@ -31,7 +31,8 @@ library(factoextra)
 
 ## Preprocessing
 
-![Data levels](fig/ScanToGroup.png)
+![Data levels](fig_script/ScanToGroup.png)
+
 
 ```{r, eval=FALSE}
 table(id$spectrumID)

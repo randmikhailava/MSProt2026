@@ -118,4 +118,3 @@ https://en.wikipedia.org/wiki/Mass_spectrometry_data_format
 
 
 ![How it looks in R](fig_script/raw.png){fig-align="center"}
-

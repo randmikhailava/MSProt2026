@@ -224,7 +224,7 @@ plotSpectra(sp[1:4])
 ### Quiz 2 (GA_5)
 Visit `gosocrative.com` and enter room name `FIN2026`
 
-## Visulaize spectra
+## Visulaize the spectra
 ```{r}
 ## The chromatogram can be created by extracting the totIonCurrent (TIC) and rtime variables for all MS1 spectra. 
 ## Lets annotate the spectrum of interest.
@@ -325,10 +325,9 @@ plotSpectraMirror(sp2[31], sp2[37]); grid()
 plotSpectraOverlay(sp2[i], col = c("red", "steelblue")); grid()
 
 ```
-
 ```{r, include=FALSE, echo=FALSE, eval=FALSE}
 ####################################################
-#library(mzR)
+library(mzR)
 
 Spectra(f)
 
@@ -339,16 +338,128 @@ x <- openMSfile(f)
 pk <- mzR::peaks(x) ## like peaksData from Spectra
 
 Spectra(DataFrame(hd))
+
 ```
 
-![](fig/frag.png)
+## Fragment Ions
+### 1. Backbone Fragment Ions
+
+When a peptide is fragmented in MS/MS, it breaks along the backbone, producing ions depending on where the charge is retained.
+
+#### Main Ion Types
+
+| Ion type | Origin                | Direction  |
+| -------- | --------------------- | ---------- |
+| a-ions   | b-ion − CO            | N-terminus |
+| b-ions   | N-terminal fragments  | N → C      |
+| c-ions   | N-terminal (ETD-type) | N → C      |
+| x-ions   | C-terminal (rare)     | C → N      |
+| y-ions   | C-terminal fragments  | C → N      |
+| z-ions   | C-terminal (ETD-type) | C → N      |
+
+### Intuition
+
+* **b / y ions** → most common (CID/HCD)
+* **c / z ions** → ETD/ECD fragmentation
+* **a ions** → less abundant (loss of CO from b)
+
+![](fig_script/frag.png)
+
+
+---
+
+### 2. Internal Fragment Ions
+
+* Formed by multiple backbone cleavages
+* Do not include peptide termini
+* Less common and harder to interpret
+
+for further study, see: [How to Deal With Internal Fragment Ions?](https://www.mcponline.org/article/S1535-9476(24)00186-5/fulltext)
+
+---
+
+### 3. Neutral Loss Ions
+
+Fragments may lose small neutral molecules:
+
+* H₂O loss (−18 Da) → Ser, Thr, Glu, Asp
+* NH₃ loss (−17 Da) → Lys, Arg, Asn, Gln
+
+---
+
+### 4. Immonium Ions
+
+Small diagnostic ions indicating specific amino acids.
+
+Examples:
+
+* Tyrosine → m/z 136
+* Phenylalanine → m/z 120
+
+---
+
+### 5. Reporter Ions
+
+* Used in labeling methods (e.g., TMT, iTRAQ)
+* Appear at low m/z
+* Indicate sample origin and abundance
+
+---
+
+## Fragmentation Methods in proteomics
+
+### CID (Collision-Induced Dissociation)
+
+* Peptides collide with gas molecules
+* Slow heating fragmentation
+
+---
+
+### HCD (Higher-energy C-trap Dissociation)
+
+* Higher-energy version of CID
+
+**Advantage:** Strong low-mass ions (useful for reporter ions)
+
+---
+
+### ETD (Electron Transfer Dissociation)
+
+* Electron transfer to peptide
+
+**Advantage:** preserves post-translational modifications
+
+---
+
+### ECD (Electron Capture Dissociation)
+
+* Similar to ETD (used in FTICR instruments)
+
+---
+
+### Hybrid Methods (EThcD)
+
+* Combination of ETD and HCD
+
+
+| Method | Ion types              | Strength                 |
+| ------ | ---------------------- | ------------------------ |
+| CID    | b, y                   | Standard sequencing      |
+| HCD    | b, y (+ reporter ions) | Quantification           |
+| ETD    | c, z                   | PTM preservation         |
+| ECD    | c, z                   | High-resolution analysis |
+| EThcD  | b, y, c, z             | Best coverage            |
+
+---
+
+
 ```{r, eval=FALSE}
 #library(PSMatch)
 calculateFragments("THSQEEMQHMQR")
 ```
 
 ### Quiz 3 (GA_6)
-Visit `gosocrative.com` and enter room name `FIN202`
+Visit `gosocrative.com` and enter room name `FIN2026`
 
 ## Working with msdata and an examplary mzID file
 ```{r}
