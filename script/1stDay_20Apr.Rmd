@@ -103,7 +103,7 @@ px <- PXDataset("PXD022816")
 pxget(px, grep("mzID", pxfiles(px))[1:3]) # It might take time for the local access  
 pxget(px, grep("mzML", pxfiles(px))[1:3]) # It might take time for the local access 
 
-(px <- PXDataset("PXD000001"))
+(px <- PXDataset("PXD000001")) # To remove any dataset from cache use:unlink(px@cachepath, recursive = TRUE) 
 (pxfiles(px)) # file names of the object
 
 fn <- "TMT_Erwinia_1uLSike_Top10HCD_isol2_45stepped_60min_01-20141210.mzML"
